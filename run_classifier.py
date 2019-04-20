@@ -993,7 +993,7 @@ def main(_):
         "allnli": AllnliProcessor,
         "sst-2": Sst2Processor,
         "qnli": QnliProcessor,
-        "stsb": StsbProcessor,
+        "sts-b": StsbProcessor,
     }
 
     tokenization.validate_case_matches_checkpoint(FLAGS.do_lower_case,
