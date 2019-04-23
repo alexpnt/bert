@@ -604,11 +604,21 @@ class QqpProcessor(DataProcessor):
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type, i)
-            text_a = tokenization.convert_to_unicode(line[3])
-            text_b = tokenization.convert_to_unicode(line[4])
-            label = tokenization.convert_to_unicode(line[5])
-            examples.append(
-                InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+            try:
+                if set_type == "test":
+                    idx = [1, 2]
+                    label = "0"
+                else:
+                    idx = [3, 4, 5]
+                    label = tokenization.convert_to_unicode(line[idx[2]])
+
+                text_a = tokenization.convert_to_unicode(line[idx[0]])
+                text_b = tokenization.convert_to_unicode(line[idx[1]])
+
+                examples.append(
+                    InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+            except IndexError:
+                continue
         return examples
 
 
